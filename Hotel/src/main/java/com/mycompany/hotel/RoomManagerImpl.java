@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.hotel;
 
-import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Statement;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  *
@@ -18,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class RoomManagerImpl implements RoomManager {
 
-    public static final Logger LOGGER = Logger.getLogger(RoomManagerImpl.class.getName());
+    public static final Logger logger = LoggerFactory.getLogger(RoomManagerImpl.class);
 
     String url = "jdbc:mysql://localhost:3306/pv168?useUnicode=true";
 
@@ -69,7 +66,7 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     st.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK", ex);
                 }
             }
 
@@ -77,7 +74,7 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
         }
@@ -138,14 +135,14 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     st.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
         }
@@ -193,7 +190,7 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     st.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
 
@@ -201,7 +198,7 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
         }
@@ -242,7 +239,7 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     st.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
 
@@ -250,7 +247,7 @@ public class RoomManagerImpl implements RoomManager {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                    logger.warn("IDK2", ex);
                 }
             }
         }
