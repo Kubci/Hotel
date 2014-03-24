@@ -6,6 +6,8 @@
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static junit.framework.Assert.assertEquals; // this is deprecated
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +25,7 @@ public class RoomManagerImplTest {
     RoomManager manager;
     Room room;
     Room room2;
-    Reservation reservation;
+
 
     @Before
     public void setUp() throws SQLException, ClassNotFoundException {
@@ -31,7 +33,6 @@ public class RoomManagerImplTest {
         manager = new RoomManagerImpl();
         room = new Room(2, 3);
         room2 = new Room(3, 4);
-        reservation = new Reservation();
         
         manager.storeRoom(room);
         manager.storeRoom(room2);
@@ -42,7 +43,16 @@ public class RoomManagerImplTest {
      */
     @Test
     public void testStoreRoom() {
-        assertEquals(room, manager.findRoom(1));
+       Room newRoom = new Room(2,2);
+        try {
+            manager.storeRoom(newRoom);
+            assertEquals(newRoom.getId(), manager.findRoom(newRoom.getId()).getId());
+            assertEquals(newRoom.getFloor(), manager.findRoom(newRoom.getId()).getFloor());
+            assertEquals(newRoom.getNumberOfBeds(), manager.findRoom(newRoom.getId()).getNumberOfBeds());
+        } catch (SQLException ex) {
+            fail();
+        }
+       
     }
     
     /*@Test (expected = IllegalArgumentException.class)
@@ -58,7 +68,7 @@ public class RoomManagerImplTest {
     public void testDeleteRoom() {
         manager.deleteRoom(room);
 
-        assertEquals(null, manager.findRoom(1));
+        assertEquals(null, manager.findRoom(room.getId()));
 
     }
 
@@ -75,9 +85,9 @@ public class RoomManagerImplTest {
     @Test
     public void testEditRoom() {
 
-        manager.editRoom(room, 5);
+        
 
-        assertEquals(5, room.getNumberOfBeds());
+        assertEquals(5, manager.editRoom(room, 5).getNumberOfBeds());
     }
 
     
@@ -90,13 +100,15 @@ public class RoomManagerImplTest {
 
     @Test
     public void testFindRoom() {
-        assertEquals(room, manager.findRoom(1));
+        assertEquals(room.getId(), manager.findRoom(room.getId()).getId());
+        assertEquals(room.getFloor(), manager.findRoom(room.getId()).getFloor());
+        assertEquals(room.getNumberOfBeds(), manager.findRoom(room.getId()).getNumberOfBeds());
+    
     }
     
     @Test (expected = IllegalArgumentException.class)
     public void testFindRoomForIllegalArgumentException(){
         manager.findRoom(-1);
-        manager.findRoom(1540);
         manager.findRoom(0);
     }
 

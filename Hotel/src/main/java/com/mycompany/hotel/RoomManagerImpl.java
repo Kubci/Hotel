@@ -104,12 +104,13 @@ public class RoomManagerImpl implements RoomManager {
 
     @Override
     public void deleteRoom(Room room) {
-        if (room.getId() == null) {
-            throw new IllegalArgumentException("room is not stored");
-        }
         if (room == null) {
             throw new IllegalArgumentException("room might not have been initilized");
         }
+        if (room.getId() == null) {
+            throw new IllegalArgumentException("room is not stored");
+        }
+        
         int id = room.getId();
 
         PreparedStatement st = null;
@@ -207,6 +208,7 @@ public class RoomManagerImpl implements RoomManager {
 
     @Override
     public Room findRoom(int id) {
+        if(id <= 0) throw new IllegalArgumentException("wrong id");
         
         PreparedStatement st = null;
         Connection conn = null;
