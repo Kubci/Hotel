@@ -44,18 +44,17 @@ public class RoomManagerImpl implements RoomManager {
         }
 
         PreparedStatement st = null;
+        Connection conn = null;
         try {
-            Connection conn = DriverManager.getConnection(url, "root", "dzames");
+            conn = DriverManager.getConnection(url, "root", "dzames");
             st = conn.prepareStatement(
-                    "INSERT INTO Rooms (floor, numberOfBeds) VALUES (?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO Rooms (floor, numberOfBeds) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, room.getFloor());
             st.setInt(2, room.getNumberOfBeds());
 
             int addedRows = st.executeUpdate();
             if (addedRows != 1) {
-                throw new ServiceFailureException("Internal Error: More rows "
-                        + "inserted when trying to insert room" + room);
+                throw new ServiceFailureException("Internal Error: More rows inserted when trying to insert room" + room);
             }
 
             ResultSet keyRS = st.getGeneratedKeys();
@@ -71,6 +70,14 @@ public class RoomManagerImpl implements RoomManager {
                     LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
+
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    LOGGER.log(Level.SEVERE, null, ex);
+                }
+            }
         }
 
     }
@@ -79,19 +86,19 @@ public class RoomManagerImpl implements RoomManager {
         if (keyRS.next()) {
             if (keyRS.getMetaData().getColumnCount() != 1) {
                 throw new ServiceFailureException("Internal Error: Generated key"
-                        + "retriving failed when trying to insert grave " + room
+                        + "retriving failed when trying to insert room " + room
                         + " - wrong key fields count: " + keyRS.getMetaData().getColumnCount());
             }
             int result = keyRS.getInt(1);
             if (keyRS.next()) {
                 throw new ServiceFailureException("Internal Error: Generated key"
-                        + "retriving failed when trying to insert grave " + room
+                        + "retriving failed when trying to insert room " + room
                         + " - more keys found");
             }
             return result;
         } else {
             throw new ServiceFailureException("Internal Error: Generated key"
-                    + "retriving failed when trying to insert grave " + room
+                    + "retriving failed when trying to insert room " + room
                     + " - no key found");
         }
     }
@@ -101,27 +108,40 @@ public class RoomManagerImpl implements RoomManager {
         if (room.getId() == null) {
             throw new IllegalArgumentException("room is not stored");
         }
+        if (room == null) {
+            throw new IllegalArgumentException("room might not have been initilized");
+        }
         int id = room.getId();
 
         PreparedStatement st = null;
+        Connection conn = null;
         try {
-            Connection conn = DriverManager.getConnection(url, "root", "dzames");
+            conn = DriverManager.getConnection(url, "root", "dzames");
             st = conn.prepareStatement("DELETE FROM Rooms WHERE id = ?");
             st.setInt(1, id);
+
             int executeUpdate = st.executeUpdate();
+
             if (executeUpdate == 0) {
                 throw new ServiceFailureException("room to delet is not in database");
             }
-            if (executeUpdate != 0) {
+            if (executeUpdate != 1) {
                 throw new ServiceFailureException("something is wrong in database, multiple rows with same id");
             }
         } catch (SQLException ex) {
             throw new ServiceFailureException(
-                    "Error when deleting grave with id " + id, ex);
+                    "Error when deleting room with id " + id, ex);
         } finally {
             if (st != null) {
                 try {
                     st.close();
+                } catch (SQLException ex) {
+                    LOGGER.log(Level.SEVERE, null, ex);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
                 } catch (SQLException ex) {
                     LOGGER.log(Level.SEVERE, null, ex);
                 }
@@ -143,15 +163,23 @@ public class RoomManagerImpl implements RoomManager {
         int id = room.getId();
 
         PreparedStatement st = null;
+        Connection conn = null;
         try {
-            Connection conn = DriverManager.getConnection(url, "root", "dzames");
+            conn = DriverManager.getConnection(url, "root", "dzames");
             st = conn.prepareStatement("UPDATE Rooms SET numberOfBeds = ? " + " WHERE id = ?");
             st.setInt(1, numbeOfBeds);
             st.setInt(2, room.getId());
+
+            int executeUpdate = st.executeUpdate();
             
-            st.executeUpdate();
-           
-            return new Room();
+            if (executeUpdate == 0) {
+                throw new ServiceFailureException("no room to edit");
+            }
+            if (executeUpdate != 1) {
+                throw new ServiceFailureException("something is wrong in database, multiple rows with same id");
+            }
+
+            return new Room(room.getId(), room.getFloor(), numbeOfBeds);
         } catch (SQLException ex) {
             throw new ServiceFailureException(
                     "Error when deleting grave with id " + id, ex);
@@ -163,51 +191,65 @@ public class RoomManagerImpl implements RoomManager {
                     LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
-        }
-    }
 
-        @Override
-        public Room findRoom
-        (int id
-        
-            
-            
-            ) {
-        PreparedStatement st = null;
-            try {
-                Connection conn = DriverManager.getConnection(url, "root", "dzames");
-                st = conn.prepareStatement(
-                        "SELECT id,floor,numberOfBeds FROM Rooms WHERE id = ?");
-                st.setInt(1, id);
-                ResultSet rs = st.executeQuery();
-
-                if (rs.next()) {
-                    Room room = resultSetToRoom(rs);
-
-                    if (rs.next()) {
-                        throw new ServiceFailureException(
-                                "Internal error: More entities with the same id found "
-                                + "(source id: " + id + ", found " + room + " and " + resultSetToRoom(rs));
-                    }
-
-                    return room;
-                } else {
-                    return null;
-                }
-
-            } catch (SQLException ex) {
-                throw new ServiceFailureException(
-                        "Error when retrieving grave with id " + id, ex);
-            } finally {
-                if (st != null) {
-                    try {
-                        st.close();
-                    } catch (SQLException ex) {
-                        LOGGER.log(Level.SEVERE, null, ex);
-                    }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
         }
+
+    }
+
+    @Override
+    public Room findRoom(int id) {
+        
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url, "root", "dzames");
+            st = conn.prepareStatement(
+                    "SELECT id,floor,numberOfBeds FROM Rooms WHERE id = ?");
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                Room room = resultSetToRoom(rs);
+
+                if (rs.next()) {
+                    throw new ServiceFailureException(
+                            "Internal error: More entities with the same id found "
+                            + "(source id: " + id + ", found " + room + " and " + resultSetToRoom(rs));
+                }
+
+                return room;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException ex) {
+            throw new ServiceFailureException(
+                    "Error when retrieving room with id " + id, ex);
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException ex) {
+                    LOGGER.log(Level.SEVERE, null, ex);
+                }
+            }
+
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    LOGGER.log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 
     private Room resultSetToRoom(ResultSet rs) throws SQLException {
         Room room = new Room();
