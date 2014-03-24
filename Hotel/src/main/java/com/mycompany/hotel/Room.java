@@ -19,7 +19,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(int id, int floor, int numberOfBeds) {
+    public Room(int floor, int numberOfBeds) {
         this.id = id;
         this.floor = floor;
         this.numberOfBeds = numberOfBeds;

@@ -28,7 +28,7 @@ public class RoomManagerImpl implements RoomManager {
     }
 
     @Override
-    public void storeRoom(Room room) throws SQLException {
+    public Room storeRoom(Room room) throws SQLException {
 
         if (room == null) {
             throw new IllegalArgumentException("room is null");
@@ -59,6 +59,8 @@ public class RoomManagerImpl implements RoomManager {
 
             ResultSet keyRS = st.getGeneratedKeys();
             room.setId(getKey(keyRS, room));
+            
+            return room;
 
         } catch (SQLException ex) {
             throw new ServiceFailureException("Error when inserting room " + room + ex);
@@ -179,7 +181,10 @@ public class RoomManagerImpl implements RoomManager {
                 throw new ServiceFailureException("something is wrong in database, multiple rows with same id");
             }
 
-            return new Room(room.getId(), room.getFloor(), numbeOfBeds);
+            Room newRoom = new Room(room.getFloor(), numbeOfBeds);
+            newRoom.setId(id);
+            return newRoom;
+            
         } catch (SQLException ex) {
             throw new ServiceFailureException(
                     "Error when deleting grave with id " + id, ex);

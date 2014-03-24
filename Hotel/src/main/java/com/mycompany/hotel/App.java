@@ -11,21 +11,16 @@ import java.util.logging.Logger;
 public class App {
 
     public static void main(String[] args) {
-        Room room = new Room(10, 5, 2);
+        Room room = new Room(5, 2);
         RoomManager manager = null;
-       /* try {
-            manager = new RoomManagerImpl();
-            manager.storeRoom(room);
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+       
         
         try {
             manager = new RoomManagerImpl();
-            manager.editRoom(room, 7);
+            Room room2 = manager.storeRoom(room);
+            manager.editRoom(room2, 5);
+            manager.findRoom(room.getId());
+            manager.deleteRoom(room2);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

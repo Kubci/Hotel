@@ -20,6 +20,6 @@ public interface RoomManager {
 
     Room findRoom(int id);
 
-    void storeRoom(Room room) throws SQLException;
+    Room storeRoom(Room room) throws SQLException;
     
 }
