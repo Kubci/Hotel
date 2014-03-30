@@ -88,6 +88,8 @@ public class ReservationManagerTest {
 		int duration = 10;
 		int nBeds = 4;
 		
-		return new Reservation(id, resPers, names, acc, checkIn, duration, nBeds);
+                Reservation reserv = new Reservation(resPers, names, acc, checkIn, duration, nBeds);
+		reserv.setId(id);
+                return reserv;
 	}
 }

@@ -23,12 +23,12 @@ public class Reservation {
     private int NOBed;
     private int idRoom;
 
-    public Reservation(Integer id, String responsiblePerson, List<String> otherPersons, String account,
+    public Reservation(String responsiblePerson, List<String> otherPersons, String account,
             Date DateOfCheckIn, int duration, int NOBed) {
         
         logger.info("Creating reservation {} ", id);
         
-        this.id = id;
+     //   this.id = id;
         this.responsiblePerson = responsiblePerson;
         this.otherPersons = otherPersons;
         this.account = account;
@@ -38,7 +38,7 @@ public class Reservation {
     }
 
     Reservation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     public Integer getId() {
