@@ -137,12 +137,13 @@ public class ReservationManagerImpl implements ReservationManager {
 
     @Override
     public void editReservation(Reservation reservation) {
-        if (reservation.getId() == null) {
-            throw new IllegalArgumentException("reservation is not stored");
-        }
         if (reservation == null) {
             throw new IllegalArgumentException("reservation is null");
         }
+        if (reservation.getId() == null) {
+            throw new IllegalArgumentException("reservation is not stored");
+        }
+        
 
         int id = reservation.getId();
 
