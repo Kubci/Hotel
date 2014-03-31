@@ -101,6 +101,10 @@ public class Reservation {
         this.idRoom = idRoom;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" + "id=" + id + ", responsiblePerson=" + responsiblePerson + ", otherPersons=" + otherPersons + ", account=" + account + ", DateOfCheckIn=" + DateOfCheckIn + ", duration=" + duration + ", NOBed=" + NOBed + ", idRoom=" + idRoom + '}';

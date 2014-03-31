@@ -19,14 +19,14 @@ public class RoomManagerImpl implements RoomManager {
 
     public static final Logger logger = LoggerFactory.getLogger(RoomManagerImpl.class);
 
-    String url = "jdbc:derby://localhost:1527/p168 [ on APP]";
-    String driver = "com.mysql.jdbc.Driver";
-    DataSource ds = null;
+    private String url = "jdbc:mysql://localhost:3306/pv168";
+    private String driver = "com.mysql.jdbc.Driver";
+    private DataSource ds = null;
 
     public RoomManagerImpl() throws ClassNotFoundException, SQLException {
         PoolProperties p = new PoolProperties();
         p.setUrl(url);
-       // p.setDriverClassName(driver);
+        p.setDriverClassName(driver);
         p.setUsername("root");
         p.setPassword("dzames");
         p.setLogAbandoned(true);
@@ -56,7 +56,6 @@ public class RoomManagerImpl implements RoomManager {
             try (PreparedStatement st = conn.prepareStatement("INSERT INTO Rooms (floor, numberOfBeds) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);) {
                 st.setInt(1, room.getFloor());
                 st.setInt(2, room.getNumberOfBeds());
-
                 int addedRows = st.executeUpdate();
                 if (addedRows != 1) {
                     throw new ServiceFailureException("Internal Error: More rows inserted when trying to insert room" + room);
@@ -65,6 +64,7 @@ public class RoomManagerImpl implements RoomManager {
                 try (ResultSet keyRS = st.getGeneratedKeys()) {
                     room.setId(getKey(keyRS, room));
                 }
+                conn.commit();
             }
             return room;
         } catch (SQLException ex) {
@@ -117,6 +117,7 @@ public class RoomManagerImpl implements RoomManager {
                 if (executeUpdate != 1) {
                     throw new ServiceFailureException("something is wrong in database, multiple rows with same id");
                 }
+                conn.commit();
             }
         } catch (SQLException ex) {
             logger.warn("SQL gone wrong", ex);
@@ -155,7 +156,9 @@ public class RoomManagerImpl implements RoomManager {
 
                 Room newRoom = new Room(room.getFloor(), numbeOfBeds);
                 newRoom.setId(id);
+                conn.commit();
                 return newRoom;
+                
             }
         } catch (SQLException ex) {
             logger.warn("SQL gone wrong", ex);
@@ -172,7 +175,6 @@ public class RoomManagerImpl implements RoomManager {
 
         try (Connection conn = ds.getConnection()) {
             try (PreparedStatement st = conn.prepareStatement("SELECT id,floor,numberOfBeds FROM Rooms WHERE id = ?")) {
-                conn.setAutoCommit(false);
                 st.setInt(1, id);
                 try (ResultSet rs = st.executeQuery();) {
                     if (rs.next()) {

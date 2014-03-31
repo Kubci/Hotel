@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="5" time="0.169" errors="1" skipped="0" tests="6" name="com.mycompany.hotel.ReservationManagerTest">
+<testsuite failures="5" time="0.134" errors="1" skipped="0" tests="6" name="com.mycompany.hotel.ReservationManagerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_40\jre\bin"/>
@@ -45,7 +45,7 @@
     <property name="java.vm.specification.version" value="1.7"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.7.0_40\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Users\Kubo\AppData\Roaming\NetBeans\7.4\maven-nblib\netbeans-eventspy.jar install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\Users\Kubo\AppData\Roaming\NetBeans\7.4\maven-nblib\netbeans-eventspy.jar clean install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="user.language.format" value="sk"/>
@@ -90,7 +90,7 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
   </testcase>
-  <testcase time="0.136" classname="com.mycompany.hotel.ReservationManagerTest" name="deleteReservationTest">
+  <testcase time="0.099" classname="com.mycompany.hotel.ReservationManagerTest" name="deleteReservationTest">
     <error message="Unexpected exception, expected&lt;java.lang.IllegalArgumentException&gt; but was&lt;java.lang.AssertionError&gt;" type="java.lang.Exception">java.lang.Exception: Unexpected exception, expected&lt;java.lang.IllegalArgumentException&gt; but was&lt;java.lang.AssertionError&gt;
 	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:28)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
@@ -132,11 +132,11 @@ Caused by: java.lang.AssertionError: expected:&lt;Reservation{id=2, responsibleP
 	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:19)
 	... 22 more
 </error>
-    <system-out>17:08:51.399 [main] INFO  com.mycompany.hotel.Reservation - Creating reservation 1 
-17:08:51.403 [main] INFO  com.mycompany.hotel.Reservation - Creating reservation 2 
+    <system-out>19:57:59.178 [main] INFO  com.mycompany.hotel.Reservation - Creating reservation null 
+19:57:59.181 [main] INFO  com.mycompany.hotel.Reservation - Creating reservation null 
 </system-out>
   </testcase>
-  <testcase time="0.001" classname="com.mycompany.hotel.ReservationManagerTest" name="getReservationWithWrongArgumentTest">
+  <testcase time="0.01" classname="com.mycompany.hotel.ReservationManagerTest" name="getReservationWithWrongArgumentTest">
     <failure message="Expected exception: java.lang.IllegalArgumentException" type="java.lang.AssertionError">java.lang.AssertionError: Expected exception: java.lang.IllegalArgumentException
 	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:32)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
@@ -163,7 +163,7 @@ Caused by: java.lang.AssertionError: expected:&lt;Reservation{id=2, responsibleP
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
   </testcase>
-  <testcase time="0" classname="com.mycompany.hotel.ReservationManagerTest" name="createReservationWithWrongArgumentTest">
+  <testcase time="0.001" classname="com.mycompany.hotel.ReservationManagerTest" name="createReservationWithWrongArgumentTest">
     <failure message="Expected exception: java.lang.IllegalArgumentException" type="java.lang.AssertionError">java.lang.AssertionError: Expected exception: java.lang.IllegalArgumentException
 	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:32)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
@@ -190,7 +190,7 @@ Caused by: java.lang.AssertionError: expected:&lt;Reservation{id=2, responsibleP
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
   </testcase>
-  <testcase time="0" classname="com.mycompany.hotel.ReservationManagerTest" name="deleteReservationWithWrongArgumentTest">
+  <testcase time="0.001" classname="com.mycompany.hotel.ReservationManagerTest" name="deleteReservationWithWrongArgumentTest">
     <failure message="Expected exception: java.lang.IllegalArgumentException" type="java.lang.AssertionError">java.lang.AssertionError: Expected exception: java.lang.IllegalArgumentException
 	at org.junit.internal.runners.statements.ExpectException.evaluate(ExpectException.java:32)
 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
@@ -255,7 +255,7 @@ Caused by: java.lang.AssertionError: expected:&lt;Reservation{id=2, responsibleP
 	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:107)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
-    <system-out>17:08:51.429 [main] INFO  com.mycompany.hotel.Reservation - Creating reservation 1 
+    <system-out>19:57:59.203 [main] INFO  com.mycompany.hotel.Reservation - Creating reservation null 
 </system-out>
   </testcase>
 </testsuite>
