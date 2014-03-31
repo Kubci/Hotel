@@ -1,12 +1,14 @@
 package com.mycompany.hotel;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Kubo
  */
 public interface ReservationManager {
 
-    void storeReservation(Reservation reservation);
+    Reservation storeReservation(Reservation reservation) throws SQLException;
 
     void deleteReservation(Reservation reservation);
 

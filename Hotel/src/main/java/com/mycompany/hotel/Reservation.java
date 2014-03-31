@@ -16,29 +16,22 @@ public class Reservation {
     
     private Integer id;
     private String responsiblePerson;
-    private List<String> otherPersons;
     private String account;
-    private Date DateOfCheckIn;
+    private Date dateOfCheckIn;
     private int duration;
-    private int NOBed;
+    private int nOBed;
     private int idRoom;
 
-    public Reservation(String responsiblePerson, List<String> otherPersons, String account,
+    public Reservation() {};
+    
+    public Reservation(String responsiblePerson, String account,
             Date DateOfCheckIn, int duration, int NOBed) {
         
-        logger.info("Creating reservation {} ", id);
-        
-     //   this.id = id;
         this.responsiblePerson = responsiblePerson;
-        this.otherPersons = otherPersons;
         this.account = account;
-        this.DateOfCheckIn = DateOfCheckIn;
+        this.dateOfCheckIn = DateOfCheckIn;
         this.duration = duration;
-        this.NOBed = NOBed;
-    }
-
-    Reservation() {
-
+        this.nOBed = NOBed;
     }
 
     public Integer getId() {
@@ -53,14 +46,6 @@ public class Reservation {
         this.responsiblePerson = responsiblePerson;
     }
 
-    public List<String> getOtherPersons() {
-        return otherPersons;
-    }
-
-    public void setOtherPersons(List<String> otherPersons) {
-        this.otherPersons = otherPersons;
-    }
-
     public String getAccount() {
         return account;
     }
@@ -70,11 +55,11 @@ public class Reservation {
     }
 
     public Date getDateOfCheckIn() {
-        return DateOfCheckIn;
+        return dateOfCheckIn;
     }
 
     public void setDateOfCheckIn(Date DateOfCheckIn) {
-        this.DateOfCheckIn = DateOfCheckIn;
+        this.dateOfCheckIn = DateOfCheckIn;
     }
 
     public int getDuration() {
@@ -86,11 +71,11 @@ public class Reservation {
     }
 
     public int getNOBed() {
-        return NOBed;
+        return nOBed;
     }
 
     public void setNOBed(int NOBed) {
-        this.NOBed = NOBed;
+        this.nOBed = NOBed;
     }
 
     public int getIdRoom() {
@@ -107,7 +92,7 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" + "id=" + id + ", responsiblePerson=" + responsiblePerson + ", otherPersons=" + otherPersons + ", account=" + account + ", DateOfCheckIn=" + DateOfCheckIn + ", duration=" + duration + ", NOBed=" + NOBed + ", idRoom=" + idRoom + '}';
+        return "Reservation{" + "id=" + id + ", responsiblePerson=" + responsiblePerson + ", account=" + account + ", DateOfCheckIn=" + dateOfCheckIn + ", duration=" + duration + ", NOBed=" + nOBed + ", idRoom=" + idRoom + '}';
     }
     
     

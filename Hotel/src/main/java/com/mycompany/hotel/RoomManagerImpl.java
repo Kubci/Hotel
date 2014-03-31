@@ -1,7 +1,6 @@
 package com.mycompany.hotel;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +18,8 @@ public class RoomManagerImpl implements RoomManager {
 
     public static final Logger logger = LoggerFactory.getLogger(RoomManagerImpl.class);
 
-    private String url = "jdbc:mysql://localhost:3306/pv168";
-    private String driver = "com.mysql.jdbc.Driver";
+    private final String url = "jdbc:mysql://localhost:3306/pv168";
+    private final String driver = "com.mysql.jdbc.Driver";
     private DataSource ds = null;
 
     public RoomManagerImpl() throws ClassNotFoundException, SQLException {
@@ -68,7 +67,7 @@ public class RoomManagerImpl implements RoomManager {
             }
             return room;
         } catch (SQLException ex) {
-            logger.warn("IDK", ex);
+            logger.warn("store room sql ex", ex);
             throw new ServiceFailureException("Error when inserting room " + room + ex);
         }
     }
@@ -120,7 +119,7 @@ public class RoomManagerImpl implements RoomManager {
                 conn.commit();
             }
         } catch (SQLException ex) {
-            logger.warn("SQL gone wrong", ex);
+            logger.warn("delete room sql ex", ex);
             throw new ServiceFailureException(
                     "Error when deleting room with id " + id, ex);
         }
@@ -161,7 +160,7 @@ public class RoomManagerImpl implements RoomManager {
                 
             }
         } catch (SQLException ex) {
-            logger.warn("SQL gone wrong", ex);
+            logger.warn("edit room sql ex", ex);
             throw new ServiceFailureException("Error when deleting room with id " + id, ex);
         }
 
@@ -191,7 +190,7 @@ public class RoomManagerImpl implements RoomManager {
                 }
             }
         } catch (SQLException ex) {
-            logger.warn("SQL gone wrong", ex);
+            logger.warn("find room sql ex", ex);
             throw new ServiceFailureException(
                     "Error when retrieving room with id " + id, ex);
         }
