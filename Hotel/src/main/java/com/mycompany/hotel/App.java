@@ -22,7 +22,7 @@ public class App {
             Room room2 = manager.storeRoom(room);
             manager.editRoom(room2, 5);
             manager.findRoom(room.getId());
-            manager.deleteRoom(room2);
+            //manager.deleteRoom(room2);
         } catch (ClassNotFoundException ex) {
             logger.warn("Class not found", ex);
         } catch (SQLException ex) {
