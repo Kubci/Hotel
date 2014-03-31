@@ -14,7 +14,6 @@ public class Room {
     }
 
     public Room(int floor, int numberOfBeds) {
-        this.id = id; // WTF? :)
         this.floor = floor;
         this.numberOfBeds = numberOfBeds;
     }
