@@ -24,7 +24,7 @@ public class SuperManagerImpl implements SuperManager{
     @Override
     public Reservation chceckIn(String responsiblePerson, List<String> otherPersons, String account,
             Date DateOfCheckIn, int duration, int NOBed) throws SQLException {
-           Reservation reservation = new Reservation(responsiblePerson, otherPersons, account, DateOfCheckIn, duration, NOBed);
+           Reservation reservation = new Reservation(responsiblePerson, account, DateOfCheckIn, duration, NOBed);
            Room room = new Room(1, NOBed);
            
            room = roomManag.storeRoom(room);
