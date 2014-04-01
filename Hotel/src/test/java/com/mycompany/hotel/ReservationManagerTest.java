@@ -29,7 +29,7 @@ public class ReservationManagerTest {
 		//assertEquals(reservation.getOtherPersons(), reservation2.getOtherPersons());
 		assertEquals(reservation.getAccount(), reservation2.getAccount());
 		assertEquals(reservation.getId(), reservation2.getId());
-		//assertEquals(reservation.getDateOfCheckIn(), reservation2.getDateOfCheckIn());
+		assertEquals(reservation.getDateOfCheckIn(), reservation2.getDateOfCheckIn());
 		assertEquals(reservation.getDuration(), reservation2.getDuration());
 		assertEquals(reservation.getNOBed(), reservation2.getNOBed());
 	}
