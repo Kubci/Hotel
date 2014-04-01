@@ -1,5 +1,6 @@
 package com.mycompany.hotel;
 
+import ch.qos.logback.classic.pattern.Util;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -216,7 +217,7 @@ public class ReservationManagerImpl implements ReservationManager {
         reservation.setDuration(rs.getInt("duration"));
         reservation.setIdRoom(rs.getInt("idRoom"));
         reservation.setNOBed(rs.getInt("nOBed"));
-        reservation.setDateOfCheckIn(rs.getDate("dateOfCheckIn"));
+        reservation.setDateOfCheckIn(new java.util.Date(rs.getDate("dateOfCheckIn").getTime()));
 
         return reservation;
     }
