@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface SuperManager {
 
-    Reservation chceckIn(String responsiblePerson, List<String> otherPersons, String account, Date DateOfCheckIn, int duration, int NOBed) throws SQLException;
+    Reservation chceckIn(String responsiblePerson, String account, Date DateOfCheckIn, int duration, int NOBed) throws SQLException;
 
     void checkOut(Integer reservId);
 
