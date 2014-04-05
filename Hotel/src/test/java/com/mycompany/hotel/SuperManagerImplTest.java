@@ -60,7 +60,7 @@ public class SuperManagerImplTest {
 	public void findReservationTest() throws SQLException, ClassNotFoundException {
 		SuperManagerImpl manager = new SuperManagerImpl();
 		Reservation insertedRes = manager.chceckIn(resPerson, account, date, duration, noBeds);
-		manager.chceckIn("ahoj", "987654321", new Date(700_000), 1, 1);
+		manager.chceckIn("ahoj", "987654321", new Date(700000000), 1, 1);
 		
 		Reservation foundRes = manager.findReservation(resPerson);
 		

@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.mycompany.hotel.SuperManagerImplTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.677 sec <<< FAILURE!
-findReservationTest(com.mycompany.hotel.SuperManagerImplTest)  Time elapsed: 0.326 sec  <<< ERROR!
+Tests run: 10, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.589 sec <<< FAILURE!
+findReservationTest(com.mycompany.hotel.SuperManagerImplTest)  Time elapsed: 0.128 sec  <<< ERROR!
 java.lang.NullPointerException
 	at com.mycompany.hotel.SuperManagerImplTest.findReservationTest(SuperManagerImplTest.java:67)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

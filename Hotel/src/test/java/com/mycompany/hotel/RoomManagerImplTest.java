@@ -77,9 +77,6 @@ public class RoomManagerImplTest {
      */
     @Test
     public void testEditRoom() {
-
-        
-
         assertEquals(5, manager.editRoom(room, 5).getNumberOfBeds());
     }
 

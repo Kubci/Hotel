@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="2.678" errors="1" skipped="0" tests="10" name="com.mycompany.hotel.SuperManagerImplTest">
+<testsuite failures="0" time="1.587" errors="1" skipped="0" tests="10" name="com.mycompany.hotel.SuperManagerImplTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_40\jre\bin"/>
@@ -65,10 +65,10 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="1.321" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkOutTest"/>
-  <testcase time="0.308" classname="com.mycompany.hotel.SuperManagerImplTest" name="findReservationTestWrongArguments"/>
-  <testcase time="0.332" classname="com.mycompany.hotel.SuperManagerImplTest" name="findReservationTestWrongArguments2"/>
-  <testcase time="0.326" classname="com.mycompany.hotel.SuperManagerImplTest" name="findReservationTest">
+  <testcase time="0.763" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkOutTest"/>
+  <testcase time="0.191" classname="com.mycompany.hotel.SuperManagerImplTest" name="findReservationTestWrongArguments"/>
+  <testcase time="0.122" classname="com.mycompany.hotel.SuperManagerImplTest" name="findReservationTestWrongArguments2"/>
+  <testcase time="0.128" classname="com.mycompany.hotel.SuperManagerImplTest" name="findReservationTest">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at com.mycompany.hotel.SuperManagerImplTest.findReservationTest(SuperManagerImplTest.java:67)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -102,10 +102,10 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </error>
   </testcase>
-  <testcase time="0.309" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInTest"/>
-  <testcase time="0" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest2"/>
+  <testcase time="0.293" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInTest"/>
+  <testcase time="0.001" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest2"/>
   <testcase time="0" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest3"/>
-  <testcase time="0" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest4"/>
+  <testcase time="0.001" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest4"/>
   <testcase time="0" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest5"/>
-  <testcase time="0" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest"/>
+  <testcase time="0.002" classname="com.mycompany.hotel.SuperManagerImplTest" name="checkInWrongParametersTest"/>
 </testsuite>

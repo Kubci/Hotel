@@ -26,7 +26,6 @@ public class ReservationManagerTest {
 		Reservation reservation2 = manager.findReservation(reservation.getId());
 		
 		assertEquals(reservation.getResponsiblePerson(), reservation2.getResponsiblePerson());
-		//assertEquals(reservation.getOtherPersons(), reservation2.getOtherPersons());
 		assertEquals(reservation.getAccount(), reservation2.getAccount());
 		assertEquals(reservation.getId(), reservation2.getId());
 		assertEquals(reservation.getDateOfCheckIn(), reservation2.getDateOfCheckIn());
