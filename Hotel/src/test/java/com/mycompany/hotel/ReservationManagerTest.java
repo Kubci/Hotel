@@ -2,7 +2,7 @@ package com.mycompany.hotel;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;

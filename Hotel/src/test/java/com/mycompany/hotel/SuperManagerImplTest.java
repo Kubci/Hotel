@@ -1,7 +1,7 @@
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

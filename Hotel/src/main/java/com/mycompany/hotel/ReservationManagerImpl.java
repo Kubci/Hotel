@@ -61,8 +61,7 @@ public class ReservationManagerImpl implements ReservationManager {
             try (PreparedStatement st = conn.prepareStatement("INSERT INTO Reservations (responsiblePerson, account, dateOfCheckIn, duration, nOBed, idRoom) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);) {
                 st.setBytes(1, reservation.getResponsiblePerson().getBytes());
                 st.setString(2, reservation.getAccount());
-                st.setDate(3, new java.sql.Date(reservation.getDateOfCheckIn().getTime()));
-                //st.setDate(3, null);
+                st.setDate(3, reservation.getDateOfCheckIn());
                 st.setInt(4, reservation.getDuration());
                 st.setInt(5, reservation.getNOBed());
                 st.setInt(6, reservation.getIdRoom());
@@ -154,8 +153,7 @@ public class ReservationManagerImpl implements ReservationManager {
                 conn.setAutoCommit(false);
                 st.setBytes(1, reservation.getResponsiblePerson().getBytes());
                 st.setString(2, reservation.getAccount());
-                st.setDate(3, new java.sql.Date(reservation.getDateOfCheckIn().getTime()));
-              //  st.setDate(3, null);
+                st.setDate(3, reservation.getDateOfCheckIn());
                 st.setInt(4, reservation.getDuration());
                 st.setInt(5, reservation.getNOBed());
                 st.setInt(6, reservation.getIdRoom());
@@ -217,7 +215,7 @@ public class ReservationManagerImpl implements ReservationManager {
         reservation.setDuration(rs.getInt("duration"));
         reservation.setIdRoom(rs.getInt("idRoom"));
         reservation.setNOBed(rs.getInt("nOBed"));
-        reservation.setDateOfCheckIn(new java.util.Date(rs.getDate("dateOfCheckIn").getTime()));
+        reservation.setDateOfCheckIn(rs.getDate("dateOfCheckIn"));
 
         return reservation;
     }

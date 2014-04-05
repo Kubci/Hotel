@@ -7,7 +7,7 @@
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
