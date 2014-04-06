@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.mycompany.hotel.ReservationManagerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.516 sec <<< FAILURE!
-CreateReservationTest(com.mycompany.hotel.ReservationManagerTest)  Time elapsed: 0.357 sec  <<< FAILURE!
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.316 sec <<< FAILURE!
+CreateReservationTest(com.mycompany.hotel.ReservationManagerTest)  Time elapsed: 0.907 sec  <<< FAILURE!
 java.lang.AssertionError: expected: java.sql.Date<1970-01-01> but was: java.sql.Date<1970-01-01>
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotEquals(Assert.java:743)

@@ -4,6 +4,7 @@ package com.mycompany.hotel;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.Objects;
 
 
 import java.util.Set;
@@ -86,7 +87,7 @@ public class SuperManagerImpl implements SuperManager {
         Set<Reservation> all = new HashSet<>();
         int idOfReservation = 1;
         while (reservManag.findReservation(idOfReservation) != null) {
-            if (reservManag.findReservation(idOfReservation).getResponsiblePerson().equals(responsiblePerson)) {
+            if (Objects.equals(reservManag.findReservation(idOfReservation).getResponsiblePerson(), responsiblePerson)) {
                 return reservManag.findReservation(idOfReservation);
             }
             idOfReservation++;
