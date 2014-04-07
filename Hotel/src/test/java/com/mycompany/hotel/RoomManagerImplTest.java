@@ -47,13 +47,13 @@ public class RoomManagerImplTest {
         }
        
     }
-    
-    /*@Test (expected = IllegalArgumentException.class)
+    /*
+    @Test (expected = IllegalArgumentException.class)
     public void testStoreRoomForIllegalArgument(){
             manager.storeRoom(null);
             manager.storeRoom(room);
-    }*/
-
+    }
+*/
     /**
      * Test of deleteRoom method, of class RoomManagerImpl.
      */

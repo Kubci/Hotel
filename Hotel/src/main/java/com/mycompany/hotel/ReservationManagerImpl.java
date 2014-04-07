@@ -1,12 +1,13 @@
 package com.mycompany.hotel;
 
-import ch.qos.logback.classic.pattern.Util;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.slf4j.LoggerFactory;
@@ -17,8 +18,6 @@ import org.slf4j.Logger;
  * @author Kubo
  */
 public class ReservationManagerImpl implements ReservationManager {
-
-    public static final Logger logger = LoggerFactory.getLogger(ReservationManagerImpl.class);
 
     private final String url = "jdbc:mysql://localhost:3306/pv168";
     private final String driver = "com.mysql.jdbc.Driver";
@@ -103,6 +102,7 @@ public class ReservationManagerImpl implements ReservationManager {
         }
     }
 
+
     @Override
     public void deleteReservation(Reservation reservation) {
         if (reservation == null) {
@@ -143,7 +143,6 @@ public class ReservationManagerImpl implements ReservationManager {
         if (reservation.getId() == null) {
             throw new IllegalArgumentException("reservation is not stored");
         }
-        
 
         int id = reservation.getId();
 
@@ -204,6 +203,27 @@ public class ReservationManagerImpl implements ReservationManager {
             logger.warn("find reservation sql ex", ex);
             throw new ServiceFailureException(
                     "Error when retrieving reservation with id " + id, ex);
+        }
+    }
+
+    @Override
+    public Set<Reservation> findAllReservation() {
+        Set<Reservation> allR = new HashSet<>();
+        try (Connection conn = ds.getConnection()) {
+            try (PreparedStatement st = conn.prepareStatement("SELECT id,responsiblePerson,account,dateOfCheckIn,duration,nOBed,idRoom FROM Reservations")) {
+                try (ResultSet rs = st.executeQuery()) {
+                    rs.next();
+                    while (rs.next()) {
+                        allR.add(resultSetToReservation(rs));
+                        rs.next();
+                    }
+                }
+            }
+            return allR;
+        } catch (SQLException ex) {
+            logger.warn("find reservation sql ex", ex);
+            throw new ServiceFailureException(
+                    "Error when retrieving all Reservations " + allR, ex);
         }
     }
 

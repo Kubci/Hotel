@@ -4,7 +4,6 @@ package com.mycompany.hotel;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.HashSet;
-import java.util.Objects;
 
 
 import java.util.Set;
@@ -46,13 +45,27 @@ public class SuperManagerImpl implements SuperManager {
         if (numBeds <= 0) {
             throw new IllegalArgumentException("Number of Beds can'ŧ be negative or zero");
         }
-
         Reservation reservation = new Reservation(responsiblePerson, account, dateOfCheckIn, duration, numBeds);
-        Room room = new Room(1, numBeds);
-
-        room = roomManag.storeRoom(room);
+        
+        Room room = null;
+        Set<Room> rooms = roomManag.findAllRooms();
+        for(Room rm : rooms){
+            if(rm.getNumberOfBeds() == numBeds && rm.getIdRes() == 0){
+                System.out.println("sparta" + rm);
+                room = rm;
+                break;
+            }
+             continue;
+            
+        }
+        
+        if(room == null){return null;}
+        
         reservation.setIdRoom(room.getId());
-        reservManag.storeReservation(reservation);
+        reservation = reservManag.storeReservation(reservation);
+        
+        roomManag.editRoom(room, reservation.getId());
+        
         return reservation;
     }
 
@@ -70,7 +83,7 @@ public class SuperManagerImpl implements SuperManager {
         Reservation reservation = reservManag.findReservation(reservId);
         int roomId = reservation.getIdRoom();
         reservManag.deleteReservation(reservation);
-        roomManag.deleteRoom(roomManag.findRoom(roomId));
+        roomManag.editRoom(roomManag.findRoom(roomId), 0);
     }
 
     @Override
@@ -84,13 +97,9 @@ public class SuperManagerImpl implements SuperManager {
             throw new IllegalArgumentException("res person is epmty string");
         }
 
-        Set<Reservation> all = new HashSet<>();
-        int idOfReservation = 1;
-        while (reservManag.findReservation(idOfReservation) != null) {
-            if (Objects.equals(reservManag.findReservation(idOfReservation).getResponsiblePerson(), responsiblePerson)) {
-                return reservManag.findReservation(idOfReservation);
-            }
-            idOfReservation++;
+        Set<Reservation> all = reservManag.findAllReservation();
+        for(Reservation rs: all){
+            if(rs.getResponsiblePerson().equals(responsiblePerson)) return rs;
         }
         return null;
     }

@@ -1,10 +1,15 @@
 package com.mycompany.hotel;
 
+
+import static com.mycompany.hotel.RoomManager.logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.slf4j.LoggerFactory;
@@ -14,9 +19,7 @@ import org.slf4j.Logger;
  *
  * @author Kubo
  */
-public class RoomManagerImpl implements RoomManager {
-
-    public static final Logger logger = LoggerFactory.getLogger(RoomManagerImpl.class);
+public class RoomManagerImpl implements RoomManager{
 
     private final String url = "jdbc:mysql://localhost:3306/pv168";
     private final String driver = "com.mysql.jdbc.Driver";
@@ -52,9 +55,10 @@ public class RoomManagerImpl implements RoomManager {
 
         try (Connection conn = ds.getConnection()) {
             conn.setAutoCommit(false);
-            try (PreparedStatement st = conn.prepareStatement("INSERT INTO Rooms (floor, numberOfBeds) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);) {
+            try (PreparedStatement st = conn.prepareStatement("INSERT INTO Rooms (floor, numberOfBeds, idRes) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);) {
                 st.setInt(1, room.getFloor());
                 st.setInt(2, room.getNumberOfBeds());
+                st.setInt(3, 0);
                 int addedRows = st.executeUpdate();
                 if (addedRows != 1) {
                     throw new ServiceFailureException("Internal Error: More rows inserted when trying to insert room" + room);
@@ -92,6 +96,20 @@ public class RoomManagerImpl implements RoomManager {
                     + " - no key found");
         }
     }
+    
+    
+    @Override
+    public void generateRooms() throws SQLException {
+
+        Random rand = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                int  n = rand.nextInt(5) + 1;
+                storeRoom(new Room(i+1, n));
+            }
+        }
+    }
 
     @Override
     public void deleteRoom(Room room) {
@@ -126,36 +144,38 @@ public class RoomManagerImpl implements RoomManager {
     }
 
     @Override
-    public Room editRoom(Room room, int numbeOfBeds) {
+    public Room editRoom(Room room, Integer idRes) {
         if (room.getId() == null) {
             throw new IllegalArgumentException("room is not stored");
         }
         if (room == null) {
             throw new IllegalArgumentException("room is null");
         }
-        if (numbeOfBeds <= 0) {
+        if (idRes <= 0) {
             throw new IllegalArgumentException("wrong argument numberOfBeds");
         }
         int id = room.getId();
 
         try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement("UPDATE Rooms SET numberOfBeds = ? " + " WHERE id = ?")) {
-                conn.setAutoCommit(false);
-                st.setInt(1, numbeOfBeds);
+            conn.setAutoCommit(false);
+            try (PreparedStatement st = conn.prepareStatement("UPDATE Rooms SET idRes = ? " + " WHERE id = ?")) {
+                
+                st.setInt(1, idRes);
                 st.setInt(2, room.getId());
 
                 int executeUpdate = st.executeUpdate();
-
+                 conn.commit();
                 if (executeUpdate == 0) {
                     throw new ServiceFailureException("no room to edit");
                 }
-                if (executeUpdate != 1) {
+                if (executeUpdate > 1) {
                     throw new ServiceFailureException("something is wrong in database, multiple rows with same id");
                 }
 
-                Room newRoom = new Room(room.getFloor(), numbeOfBeds);
+                Room newRoom = new Room(room.getFloor(), idRes);
                 newRoom.setId(id);
-                conn.commit();
+                newRoom.setIdRes(idRes);
+               
                 return newRoom;
                 
             }
@@ -173,7 +193,7 @@ public class RoomManagerImpl implements RoomManager {
         }
 
         try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement("SELECT id,floor,numberOfBeds FROM Rooms WHERE id = ?")) {
+            try (PreparedStatement st = conn.prepareStatement("SELECT id,floor,numberOfBeds,idRes FROM Rooms WHERE id = ?")) {
                 st.setInt(1, id);
                 try (ResultSet rs = st.executeQuery();) {
                     if (rs.next()) {
@@ -195,12 +215,32 @@ public class RoomManagerImpl implements RoomManager {
                     "Error when retrieving room with id " + id, ex);
         }
     }
+    
+    @Override
+    public Set<Room> findAllRooms() {
+        Set<Room> allR = new HashSet<>();
+        try (Connection conn = ds.getConnection()) {
+            try (PreparedStatement st = conn.prepareStatement("SELECT id,floor,numberOfBeds,idRes FROM Rooms")) {
+                try (ResultSet rs = st.executeQuery();) {
+                    while (rs.next()) {
+                         allR.add(resultSetToRoom(rs));
+                    }
+                }
+            }
+            return allR;
+        } catch (SQLException ex) {
+            logger.warn("find room sql ex", ex);
+            throw new ServiceFailureException(
+                    "Error when retrieving room with id " + allR, ex);
+        }
+    }
 
     private Room resultSetToRoom(ResultSet rs) throws SQLException {
         Room room = new Room();
         room.setId(rs.getInt("id"));
         room.setFloor(rs.getInt("floor"));
         room.setNumberOfBeds(rs.getInt("numberOfBeds"));
+        room.setIdRes(rs.getInt("idRes"));
         return room;
     }
 }

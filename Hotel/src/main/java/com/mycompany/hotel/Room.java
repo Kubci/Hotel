@@ -9,9 +9,20 @@ public class Room {
     private Integer id = null;
     private int floor;
     private int numberOfBeds;
+    private Integer idRes = null;
 
-    public Room() {
+        public Room() {
     }
+    
+    public Integer getIdRes() {
+        return idRes;
+    }
+
+    public void setIdRes(Integer idRes) {
+        this.idRes = idRes;
+    }
+
+
 
     public Room(int floor, int numberOfBeds) {
         this.floor = floor;
@@ -44,8 +55,10 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" + "id=" + id + ", floor=" + floor + ", numberOfBeds=" + numberOfBeds + '}';
+        return "Room{" + "id=" + id + ", floor=" + floor + ", numberOfBeds=" + numberOfBeds + ", idRes=" + idRes + '}';
     }
+
+  
     
     
 }
