@@ -16,7 +16,7 @@ public class App {
         SuperManager sm = new SuperManagerImpl();
        // sm.chceckIn("dzaba", "123456", new Date(50000), 7, 4);
         //sm.checkOut(1);
-        System.out.println(sm.findReservation("sdfghj"));
+       // System.out.println(sm.findReservation("sdfghj"));
         
         /*
         ReservationManager rm = new ReservationManagerImpl();

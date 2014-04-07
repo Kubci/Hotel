@@ -59,7 +59,7 @@ public class SuperManagerImpl implements SuperManager {
         reservation = reservManag.storeReservation(reservation);
 
         roomManag.editRoom(room, reservation.getId());
-        System.out.println(reservation);
+      
         return reservation;
     }
 
