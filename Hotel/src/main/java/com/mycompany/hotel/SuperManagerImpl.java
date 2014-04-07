@@ -1,10 +1,7 @@
-
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
 import java.sql.Date;
-import java.util.HashSet;
-
 
 import java.util.Set;
 
@@ -55,11 +52,11 @@ public class SuperManagerImpl implements SuperManager {
                 room = rm;
                 break;
             }
-             continue;
-            
         }
         
-        if(room == null){return null;}
+        if(room == null) {
+			return null;
+		}
         
         reservation.setIdRoom(room.getId());
         reservation = reservManag.storeReservation(reservation);

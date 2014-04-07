@@ -57,8 +57,4 @@ public class Room {
     public String toString() {
         return "Room{" + "id=" + id + ", floor=" + floor + ", numberOfBeds=" + numberOfBeds + ", idRes=" + idRes + '}';
     }
-
-  
-    
-    
 }
