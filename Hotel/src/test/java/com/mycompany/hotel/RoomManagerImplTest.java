@@ -47,13 +47,13 @@ public class RoomManagerImplTest {
         }
        
     }
-    /*
+    
     @Test (expected = IllegalArgumentException.class)
-    public void testStoreRoomForIllegalArgument(){
+    public void testStoreRoomForIllegalArgument() throws SQLException{
             manager.storeRoom(null);
             manager.storeRoom(room);
     }
-*/
+
     /**
      * Test of deleteRoom method, of class RoomManagerImpl.
      */
@@ -65,6 +65,12 @@ public class RoomManagerImplTest {
 
     }
 
+    /*
+    @Test
+    public void testFindAllRooms(){
+    assertEquals(100, manager.findAllRooms().size());
+    }*/
+    
     @Test(expected = IllegalArgumentException.class)
     public void testDeleteRoomForIllegalArgument() {
         manager.deleteRoom(null);
@@ -77,13 +83,13 @@ public class RoomManagerImplTest {
      */
     @Test
     public void testEditRoom() {
-        assertEquals(5, manager.editRoom(room, 5).getNumberOfBeds());
+        int a =  manager.editRoom(room, 5).getIdRes();
+        assertEquals(5,a);
     }
 
     
     @Test (expected = IllegalArgumentException.class)
     public void editRoomForIllegalArgumentException() {
-            manager.editRoom(room, 0);
             manager.editRoom(room, -5);
             manager.editRoom(room, 100);       
     }

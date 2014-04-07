@@ -18,7 +18,8 @@ public class SuperManagerImplTest {
 		
 		SuperManagerImpl manager = new SuperManagerImpl();
 		Reservation asdf = manager.chceckIn(resPerson, account, date, duration, noBeds);
-		
+                System.out.println(manager.chceckIn(resPerson, account, date, duration, noBeds));
+		          System.out.println(asdf);
 		assertEquals(resPerson, asdf.getResponsiblePerson());
 		assertEquals(account, asdf.getAccount());
 		assertEquals(date.getTime(), asdf.getDateOfCheckIn().getTime());
@@ -63,7 +64,6 @@ public class SuperManagerImplTest {
 		manager.chceckIn("ahoj", "987654321", new Date(700000000), 1, 1);
 		
 		Reservation foundRes = manager.findReservation(resPerson);
-		          System.out.println(foundRes == null);
 		assertEquals(insertedRes.getAccount(), foundRes.getAccount());
 		assertEquals(insertedRes.getDateOfCheckIn(), foundRes.getDateOfCheckIn());
 		assertEquals(insertedRes.getDuration(), foundRes.getDuration());

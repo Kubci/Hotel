@@ -145,15 +145,14 @@ public class RoomManagerImpl implements RoomManager{
 
     @Override
     public Room editRoom(Room room, Integer idRes) {
+         if (room == null) {
+            throw new IllegalArgumentException("room is null");
+        }
         if (room.getId() == null) {
             throw new IllegalArgumentException("room is not stored");
         }
-        if (room == null) {
-            throw new IllegalArgumentException("room is null");
-        }
-        if (idRes <= 0) {
-            throw new IllegalArgumentException("wrong argument numberOfBeds");
-        }
+        if(idRes < 0) throw new IllegalArgumentException("illegal idReservaation");
+        
         int id = room.getId();
 
         try (Connection conn = ds.getConnection()) {
@@ -172,7 +171,7 @@ public class RoomManagerImpl implements RoomManager{
                     throw new ServiceFailureException("something is wrong in database, multiple rows with same id");
                 }
 
-                Room newRoom = new Room(room.getFloor(), idRes);
+                Room newRoom = new Room(room.getFloor(), room.getNumberOfBeds());
                 newRoom.setId(id);
                 newRoom.setIdRes(idRes);
                

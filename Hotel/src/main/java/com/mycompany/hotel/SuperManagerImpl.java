@@ -1,17 +1,15 @@
-
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.HashSet;
 
-
 import java.util.Set;
 
 /**
-*
-* @author Kubo
-*/
+ *
+ * @author Kubo
+ */
 public class SuperManagerImpl implements SuperManager {
 
     RoomManager roomManag;
@@ -46,26 +44,25 @@ public class SuperManagerImpl implements SuperManager {
             throw new IllegalArgumentException("Number of Beds can'ŧ be negative or zero");
         }
         Reservation reservation = new Reservation(responsiblePerson, account, dateOfCheckIn, duration, numBeds);
-        
+
         Room room = null;
         Set<Room> rooms = roomManag.findAllRooms();
-        for(Room rm : rooms){
-            if(rm.getNumberOfBeds() == numBeds && rm.getIdRes() == 0){
-                System.out.println("sparta" + rm);
+        for (Room rm : rooms) {
+            if (rm.getNumberOfBeds() == numBeds && rm.getIdRes() == 0) {
                 room = rm;
                 break;
             }
-             continue;
-            
         }
-        
-        if(room == null){return null;}
-        
+
+        if (room == null) {
+            return null;
+        }
+
         reservation.setIdRoom(room.getId());
         reservation = reservManag.storeReservation(reservation);
-        
+
         roomManag.editRoom(room, reservation.getId());
-        
+        System.out.println(reservation);
         return reservation;
     }
 
@@ -98,8 +95,10 @@ public class SuperManagerImpl implements SuperManager {
         }
 
         Set<Reservation> all = reservManag.findAllReservation();
-        for(Reservation rs: all){
-            if(rs.getResponsiblePerson().equals(responsiblePerson)) return rs;
+        for (Reservation rs : all) {
+            if (rs.getResponsiblePerson().equals(responsiblePerson)) {
+                return rs;
+            }
         }
         return null;
     }

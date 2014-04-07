@@ -212,10 +212,8 @@ public class ReservationManagerImpl implements ReservationManager {
         try (Connection conn = ds.getConnection()) {
             try (PreparedStatement st = conn.prepareStatement("SELECT id,responsiblePerson,account,dateOfCheckIn,duration,nOBed,idRoom FROM Reservations")) {
                 try (ResultSet rs = st.executeQuery()) {
-                    rs.next();
                     while (rs.next()) {
                         allR.add(resultSetToReservation(rs));
-                        rs.next();
                     }
                 }
             }
