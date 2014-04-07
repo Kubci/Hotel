@@ -1,6 +1,5 @@
 package com.mycompany.hotel;
 
-
 import static com.mycompany.hotel.RoomManager.logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +11,6 @@ import java.util.Random;
 import java.util.Set;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 /**
  *
@@ -163,7 +160,7 @@ public class RoomManagerImpl implements RoomManager{
                 st.setInt(2, room.getId());
 
                 int executeUpdate = st.executeUpdate();
-                 conn.commit();
+                conn.commit();
                 if (executeUpdate == 0) {
                     throw new ServiceFailureException("no room to edit");
                 }

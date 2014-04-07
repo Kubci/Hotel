@@ -1,7 +1,6 @@
 package com.mycompany.hotel;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 /**
  *

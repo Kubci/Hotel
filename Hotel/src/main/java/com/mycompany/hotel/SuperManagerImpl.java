@@ -2,7 +2,10 @@ package com.mycompany.hotel;
 
 import java.sql.SQLException;
 import java.sql.Date;
+<<<<<<< HEAD
 import java.util.HashSet;
+=======
+>>>>>>> 0921c6e0100bb9aac059d10867aba2cabea08f68
 
 import java.util.Set;
 
@@ -53,11 +56,19 @@ public class SuperManagerImpl implements SuperManager {
                 break;
             }
         }
+<<<<<<< HEAD
 
         if (room == null) {
             return null;
         }
 
+=======
+        
+        if(room == null) {
+			return null;
+		}
+        
+>>>>>>> 0921c6e0100bb9aac059d10867aba2cabea08f68
         reservation.setIdRoom(room.getId());
         reservation = reservManag.storeReservation(reservation);
 

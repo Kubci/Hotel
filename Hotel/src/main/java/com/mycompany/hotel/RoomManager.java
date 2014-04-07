@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
@@ -18,7 +12,6 @@ import org.slf4j.LoggerFactory;
 public interface RoomManager {
     Logger logger = LoggerFactory.getLogger(ReservationManagerImpl.class);
 
-
     void deleteRoom(Room room);
 
     Room editRoom(Room room, Integer resId);
@@ -30,5 +23,4 @@ public interface RoomManager {
     void generateRooms() throws SQLException;
 
     Room storeRoom(Room room) throws SQLException;
-    
 }

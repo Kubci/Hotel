@@ -18,5 +18,4 @@ public class ServiceFailureException extends RuntimeException {
     public ServiceFailureException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }
