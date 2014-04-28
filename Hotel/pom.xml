@@ -54,5 +54,10 @@
       <artifactId>tomcat-juli</artifactId>
       <version>8.0.3</version>
     </dependency>
-    </dependencies>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+  </dependencies>
 </project>

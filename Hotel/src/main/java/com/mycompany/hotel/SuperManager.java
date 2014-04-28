@@ -14,4 +14,6 @@ public interface SuperManager {
     void checkOut(Integer reservId);
 
     Reservation findReservation(String responsiblePerson);    
+    
+     public Room findRoom(Integer id);
 }

@@ -45,7 +45,7 @@ public class SuperManagerImpl implements SuperManager {
         Reservation reservation = new Reservation(responsiblePerson, account, dateOfCheckIn, duration, numBeds);
 
         Room room = null;
-        Set<Room> rooms = roomManag.findAllRooms();
+        Set<Room> rooms = roomManag.findAllFreeRooms();
         for (Room rm : rooms) {
             if (rm.getNumberOfBeds() == numBeds && rm.getIdRes() == 0) {
                 room = rm;
@@ -98,5 +98,10 @@ public class SuperManagerImpl implements SuperManager {
             }
         }
         return null;
+    }
+   
+    @Override
+    public Room findRoom(Integer id){
+        return roomManag.findRoom(id);
     }
 }

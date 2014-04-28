@@ -65,6 +65,7 @@ public class RoomManagerImpl implements RoomManager{
                     room.setId(getKey(keyRS, room));
                 }
                 conn.commit();
+                conn.setAutoCommit(true);
             }
             return room;
         } catch (SQLException ex) {
@@ -213,10 +214,10 @@ public class RoomManagerImpl implements RoomManager{
     }
     
     @Override
-    public Set<Room> findAllRooms() {
+    public Set<Room> findAllFreeRooms() {
         Set<Room> allR = new HashSet<>();
         try (Connection conn = ds.getConnection()) {
-            try (PreparedStatement st = conn.prepareStatement("SELECT id,floor,numberOfBeds,idRes FROM Rooms")) {
+            try (PreparedStatement st = conn.prepareStatement("SELECT id,floor,numberOfBeds,idRes FROM Rooms WHERE idRes = 0")) {
                 try (ResultSet rs = st.executeQuery();) {
                     while (rs.next()) {
                          allR.add(resultSetToRoom(rs));

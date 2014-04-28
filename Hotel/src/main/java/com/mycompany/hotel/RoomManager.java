@@ -16,7 +16,7 @@ public interface RoomManager {
 
     Room editRoom(Room room, Integer resId);
 
-    Set<Room> findAllRooms();
+    Set<Room> findAllFreeRooms();
 
     Room findRoom(int id);
 

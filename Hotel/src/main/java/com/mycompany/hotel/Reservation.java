@@ -43,6 +43,14 @@ public class Reservation {
         this.responsiblePerson = responsiblePerson;
     }
 
+    public int getNOBed() {
+        return nOBed;
+    }
+
+    public void setNOBed(int nOBed) {
+        this.nOBed = nOBed;
+    }
+
     public String getAccount() {
         return account;
     }
@@ -65,14 +73,6 @@ public class Reservation {
 
     public void setDuration(int duration) {
         this.duration = duration;
-    }
-
-    public int getNOBed() {
-        return nOBed;
-    }
-
-    public void setNOBed(int NOBed) {
-        this.nOBed = NOBed;
     }
 
     public int getIdRoom() {

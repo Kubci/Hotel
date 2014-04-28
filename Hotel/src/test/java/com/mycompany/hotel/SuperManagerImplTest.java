@@ -94,6 +94,6 @@ public class SuperManagerImplTest {
 		
 		manager.checkOut(insertedRes.getId());
 		
-		//assertEquals(null, manager.findReservation(insertedRes.getResponsiblePerson()));
+		assertEquals(null, manager.findReservation(insertedRes.getResponsiblePerson()));
 	}
 }
