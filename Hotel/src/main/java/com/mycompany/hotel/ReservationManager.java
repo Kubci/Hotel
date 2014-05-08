@@ -1,7 +1,7 @@
 package com.mycompany.hotel;
 
 import java.sql.SQLException;
-import java.util.Set;
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public interface ReservationManager{
 
     void editReservation(Reservation reservation);
 
-    Set<Reservation> findAllReservation();
+    ArrayList<Reservation> findAllReservation();
 
     Reservation findReservation(int id);
 

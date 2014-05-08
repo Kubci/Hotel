@@ -2,7 +2,6 @@ package com.mycompany.hotel;
 
 import java.sql.SQLException;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -79,29 +78,9 @@ public class SuperManagerImpl implements SuperManager {
         reservManag.deleteReservation(reservation);
         roomManag.editRoom(roomManag.findRoom(roomId), 0);
     }
-
-    @Override
-    public Reservation findReservation(String responsiblePerson) {
-
-        if (responsiblePerson == null) {
-            throw new NullPointerException("res person is null");
-        }
-
-        if (responsiblePerson.equals("")) {
-            throw new IllegalArgumentException("res person is epmty string");
-        }
-
-        Set<Reservation> all = reservManag.findAllReservation();
-        for (Reservation rs : all) {
-            if (rs.getResponsiblePerson().equals(responsiblePerson)) {
-                return rs;
-            }
-        }
-        return null;
-    }
    
     @Override
-    public Room findRoom(Integer id){
-        return roomManag.findRoom(id);
+    public Reservation findReservation(Integer id){
+        return reservManag.findReservation(id);
     }
 }

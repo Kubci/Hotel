@@ -56,7 +56,7 @@ public class SuperManagerImplTest {
 		SuperManagerImpl manager = new SuperManagerImpl();
 		manager.chceckIn(resPerson, account, date, duration, -1);
 	}
-	
+	/*
 	@Test
 	public void findReservationTest() throws SQLException, ClassNotFoundException {
 		SuperManagerImpl manager = new SuperManagerImpl();
@@ -95,5 +95,5 @@ public class SuperManagerImplTest {
 		manager.checkOut(insertedRes.getId());
 		
 		assertEquals(null, manager.findReservation(insertedRes.getResponsiblePerson()));
-	}
+	}*/
 }

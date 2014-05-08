@@ -1,6 +1,7 @@
 package com.mycompany.hotel;
 
 import java.sql.Date;
+import java.util.Objects;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -90,6 +91,28 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" + "id=" + id + ", responsiblePerson=" + responsiblePerson + ", account=" + account + ", DateOfCheckIn=" + dateOfCheckIn + ", duration=" + duration + ", NOBed=" + nOBed + ", idRoom=" + idRoom + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Reservation other = (Reservation) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
     
     

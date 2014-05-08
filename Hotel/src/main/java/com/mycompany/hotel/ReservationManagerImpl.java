@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 
@@ -15,17 +15,19 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
  * @author Kubo
  */
 public class ReservationManagerImpl implements ReservationManager {
-
-    private final String url = "jdbc:mysql://localhost:3306/pv168";
-    private final String driver = "com.mysql.jdbc.Driver";
+    private String bundle = "dbconfig";
+    private ResourceBundle text = ResourceBundle.getBundle(bundle);
+    
+    private final String url = text.getString("url");
+    private final String driver = text.getString("driver");
     private DataSource ds = null;
 
     public ReservationManagerImpl() throws ClassNotFoundException, SQLException {
         PoolProperties p = new PoolProperties();
         p.setUrl(url);
         p.setDriverClassName(driver);
-        p.setUsername("root");
-        p.setPassword("dzames");
+        p.setUsername(text.getString("login"));
+        p.setPassword(text.getString("psswd"));
         p.setLogAbandoned(true);
         ds = new DataSource();
         ds.setPoolProperties(p);
@@ -204,8 +206,8 @@ public class ReservationManagerImpl implements ReservationManager {
     }
 
     @Override
-    public Set<Reservation> findAllReservation() {
-        Set<Reservation> allR = new HashSet<>();
+    public ArrayList<Reservation> findAllReservation() {
+        ArrayList<Reservation> allR = new ArrayList<>();
         try (Connection conn = ds.getConnection()) {
             try (PreparedStatement st = conn.prepareStatement("SELECT id,responsiblePerson,account,dateOfCheckIn,duration,nOBed,idRoom FROM Reservations")) {
                 try (ResultSet rs = st.executeQuery()) {
